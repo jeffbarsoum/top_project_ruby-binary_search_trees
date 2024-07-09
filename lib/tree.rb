@@ -9,16 +9,20 @@ class Tree
 
   def initialize(array)
     sorted = merge_sort(array)
-    build_tree(sorted)
+    p sorted
+    p sorted.uniq
+    tree = build_tree(sorted.uniq) # rubocop:disable Style/RedundantAssignment
+    tree # rubocop:disable Lint/Void
   end
 
   def build_tree(array)
-    divider = array.length / 2
-    return array if array.length == 1
+    divider = (array.length - 1) / 2
+    return nil if array.empty?
+    return Node.new(array[0]) if array.length == 1
+    return Node.new(array[1], nil, Node.new(array[0])) if array.length == 2
 
-    left_array = array[0..divider - 1]
-    right_array = array[divider + 1..array.length - 1]
-    self.root = Node.new(root, build_tree(left_array), build_tree(right_array))
+    node_array = [build_tree(array[0..divider - 1]), build_tree(array[divider + 1..array.length - 1])]
+    self.root = Node.new(array[divider], node_array.min, node_array.max)
     root
   end
 
@@ -44,5 +48,3 @@ class Tree
 
   def rebalance; end
 end
-tree = Tree.new([1, 2, 3, 4, 5])
-puts tree.root
