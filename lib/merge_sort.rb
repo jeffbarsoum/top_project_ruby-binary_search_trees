@@ -18,6 +18,6 @@ module MergeSort
 
     a = merge_sort(array[0..divider])
     b = merge_sort(array[divider + 1..array.length - 1])
-    self.array = merge(a, b)
+    merge(a, b)
   end
 end
