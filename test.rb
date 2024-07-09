@@ -2,6 +2,8 @@
 
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
+require 'tree'
+
 test = Tree.new((Array.new(15) { rand(1..100) }))
 
 # Confirm that the tree is balanced by calling #balanced?
