@@ -16,7 +16,10 @@ class Node
     self.right_node = right_node
   end
 
-  def to_s
-    "[ ( #{left_node.value} ) <-- { #{value} } --> ( #{right_node.value} )  ]"
+  def to_s(node = self, prefix = '', is_left = true)
+    to_s(node.right_node, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_node
+    puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.value}"
+    to_s(node.left_node, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left_node
+    # "[ ( #{left_node} ) <-- { #{value} } --> ( #{right_node} )  ]"
   end
 end
