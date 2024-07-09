@@ -6,11 +6,15 @@ class Node
   # setters and getters for "value" and "next_node"
   attr_accessor :left_node, :right_node, :value
 
-  def <=>
-    left_node <=> right_node
+  def <=>(other)
+    return 0 if value.nil? && other.value.nil?
+    return -1 if value.nil?
+    return 1 if other.value.nil?
+
+    value <=> other.value
   end
 
-  def initialize(value, left_node, right_node)
+  def initialize(value, left_node = nil, right_node = nil)
     self.value = value
     self.left_node = left_node
     self.right_node = right_node
