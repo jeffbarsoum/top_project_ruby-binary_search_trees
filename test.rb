@@ -9,8 +9,15 @@ p array
 test = Tree.new(array)
 puts test.root
 
+puts 'test preorder:'
 test.preorder { |leaf| p leaf }
-# p test.preorder
+p test.preorder
+puts 'test inorder:'
+test.inorder { |leaf| p leaf }
+p test.inorder
+puts 'test postorder:'
+test.postorder { |leaf| p leaf }
+p test.postorder
 
 # Confirm that the tree is balanced by calling #balanced?
 # Print out all elements in level, pre, post, and in order

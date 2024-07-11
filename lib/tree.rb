@@ -32,23 +32,48 @@ class Tree
 
   def find(value); end
 
-  def level_order(&block); end
+  def level_order(&block)
+    until queue.empty?
+      leaf = queue.shift
+      block.call(leaf.value) if leaf.value && block_given?
+      result << leaf.value unless block_given? || leaf.nil?
+      queue << leaf.left_node if leaf.left_node
+      queue << leaf.right_node if leaf.right_node
+    end
+  end
 
-  def inorder(&block); end
-
-  def preorder(leaf = root, &block)
-    result = []
+  def inorder(leaf = root, result = [], &block)
     return if leaf.nil?
 
-    block.call(leaf.value) if block_given? && leaf.value
-    result << leaf.value unless block_given? || !leaf.value
-    preorder(leaf.left_node, &block)
-    preorder(leaf.right_node, &block)
+    preorder(leaf.left_node, result, &block)
+    block.call(leaf.value) if block_given?
+    result << leaf.value unless block_given?
+    preorder(leaf.right_node, result, &block)
 
     result unless block_given?
   end
 
-  def postorder(&block); end
+  def preorder(leaf = root, result = [], &block)
+    return if leaf.nil?
+
+    block.call(leaf.value) if block_given?
+    result << leaf.value unless block_given?
+    preorder(leaf.left_node, result, &block)
+    preorder(leaf.right_node, result, &block)
+
+    result unless block_given?
+  end
+
+  def postorder(leaf = root, result = [], &block)
+    return if leaf.nil?
+
+    postorder(leaf.left_node, result, &block)
+    postorder(leaf.right_node, result, &block)
+    block.call(leaf.value) if block_given?
+    result << leaf.value unless block_given?
+
+    result unless block_given?
+  end
 
   def height(node); end
 
