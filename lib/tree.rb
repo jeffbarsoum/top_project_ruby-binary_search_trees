@@ -36,7 +36,17 @@ class Tree
 
   def inorder(&block); end
 
-  def preorder(&block); end
+  def preorder(leaf = root, &block)
+    result = []
+    return if leaf.nil?
+
+    block.call(leaf.value) if block_given? && leaf.value
+    result << leaf.value unless block_given? || !leaf.value
+    preorder(leaf.left_node, &block)
+    preorder(leaf.right_node, &block)
+
+    result unless block_given?
+  end
 
   def postorder(&block); end
 
