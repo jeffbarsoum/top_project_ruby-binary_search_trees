@@ -33,13 +33,16 @@ class Tree
   def find(value); end
 
   def level_order(&block)
+    queue = [root]
+    result = []
     until queue.empty?
       leaf = queue.shift
-      block.call(leaf.value) if leaf.value && block_given?
+      block.call(leaf.value) if leaf&.value && block_given?
       result << leaf.value unless block_given? || leaf.nil?
-      queue << leaf.left_node if leaf.left_node
-      queue << leaf.right_node if leaf.right_node
+      queue << leaf.left_node if leaf&.left_node
+      queue << leaf.right_node if leaf&.right_node
     end
+    result unless block_given?
   end
 
   def inorder(leaf = root, result = [], &block)
