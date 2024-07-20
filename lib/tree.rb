@@ -158,7 +158,15 @@ class Tree
     branch_cnt.max
   end
 
-  def depth(node); end
+  def depth(node)
+    branch_cnt = 0
+    parent_node = node
+    until parent_node == root
+      parent_node = parent(parent_node)
+      branch_cnt += 1
+    end
+    branch_cnt
+  end
 
   def balanced?; end
 
