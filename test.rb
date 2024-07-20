@@ -37,8 +37,19 @@ puts test.root
 # test.insert(insert_minus)
 # puts test.root
 
-p "height #{array[0]}: #{test.height(test.find(array[0]))}"
-p "depth #{array[0]}: #{test.depth(test.find(array[0]))}"
+# p "height #{array[0]}: #{test.height(test.find(array[0]))}"
+# p "depth #{array[0]}: #{test.depth(test.find(array[0]))}"
+
+p "balanced? #{test.balanced?}"
+p 'unbalance tree, insert numbers > 500...'
+test.insert(501)
+test.insert(502)
+test.insert(503)
+test.insert(504)
+test.insert(505)
+p 'tree should be unbalanced now...'
+p "balanced? #{test.balanced?}"
+puts test.root
 
 # Confirm that the tree is balanced by calling #balanced?
 # Print out all elements in level, pre, post, and in order
