@@ -144,7 +144,19 @@ class Tree
     result unless block_given?
   end
 
-  def height(node); end
+  def height(node)
+    branch_cnt = []
+    inorder(node) do |nd|
+      if leaf?(nd)
+        branch_cnt << 0
+        until nd == node
+          nd = parent(nd)
+          branch_cnt[-1] += 1
+        end
+      end
+    end
+    branch_cnt.max
+  end
 
   def depth(node); end
 
