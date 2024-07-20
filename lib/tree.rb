@@ -59,7 +59,7 @@ class Tree
   def preorder(leaf = root, result = [], &block)
     return if leaf.nil?
 
-    block.call(leaf.value) if block_given?
+    block.call(leaf) if block_given?
     result << leaf.value unless block_given?
     preorder(leaf.left_node, result, &block)
     preorder(leaf.right_node, result, &block)
@@ -72,7 +72,7 @@ class Tree
 
     postorder(leaf.left_node, result, &block)
     postorder(leaf.right_node, result, &block)
-    block.call(leaf.value) if block_given?
+    block.call(leaf) if block_given?
     result << leaf.value unless block_given?
 
     result unless block_given?
