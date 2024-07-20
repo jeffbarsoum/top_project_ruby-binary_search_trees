@@ -51,6 +51,12 @@ p 'tree should be unbalanced now...'
 p "balanced? #{test.balanced?}"
 puts test.root
 
+p 'rebalance time...'
+test.rebalance
+p 'tree should be balanced now...'
+p "balanced? #{test.balanced?}"
+puts test.root
+
 # Confirm that the tree is balanced by calling #balanced?
 # Print out all elements in level, pre, post, and in order
 # Unbalance the tree by adding several numbers > 100

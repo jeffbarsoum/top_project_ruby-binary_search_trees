@@ -177,5 +177,7 @@ class Tree
     (-1..1).member?(height(root.left_node) - height(root.right_node))
   end
 
-  def rebalance; end
+  def rebalance
+    initialize(inorder)
+  end
 end
