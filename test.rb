@@ -29,13 +29,16 @@ puts test.root
 # test.delete(array[0])
 # puts test.root
 
-insert_plus = array[10] + 1
-insert_minus = array[10] - 1
-p "insert #{insert_minus}, #{insert_plus}"
+# insert_plus = array[10] + 1
+# insert_minus = array[10] - 1
+# p "insert #{insert_minus}, #{insert_plus}"
 
-test.insert(insert_plus)
-test.insert(insert_minus)
-puts test.root
+# test.insert(insert_plus)
+# test.insert(insert_minus)
+# puts test.root
+
+p "height #{array[0]}: #{test.height(test.find(array[0]))}"
+p "depth #{array[0]}: #{test.depth(test.find(array[0]))}"
 
 # Confirm that the tree is balanced by calling #balanced?
 # Print out all elements in level, pre, post, and in order
