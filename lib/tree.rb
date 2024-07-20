@@ -16,7 +16,7 @@ class Tree
     tree # rubocop:disable Lint/Void
   end
 
-  def build_tree(array)
+  def build_tree(array) # rubocop:disable Metrics/AbcSize
     divider = (array.length - 1) / 2
     return nil if array.empty?
     return Node.new(array[0]) if array.length == 1
