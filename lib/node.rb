@@ -20,6 +20,22 @@ class Node
     self.right_node = right_node
   end
 
+  def reset(value = nil, left_node = nil, right_node = nil)
+    initialize(value, left_node, right_node)
+  end
+
+  def left_node?(node)
+    return left_node if node == left_node
+
+    false
+  end
+
+  def right_node?(node)
+    return right_node if node == right_node
+
+    false
+  end
+
   def to_s(node = self, prefix = '', is_left = true)
     to_s(node.right_node, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_node
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.value}"
