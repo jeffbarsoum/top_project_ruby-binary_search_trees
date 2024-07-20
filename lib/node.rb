@@ -7,9 +7,9 @@ class Node
   attr_accessor :left_node, :right_node, :value
 
   def <=>(other)
-    return 0 if value.nil? && other.value.nil?
+    return 0 if value.nil? && other&.value.nil?
     return -1 if value.nil?
-    return 1 if other.value.nil?
+    return 1 if other&.value.nil?
 
     value <=> other.value
   end
