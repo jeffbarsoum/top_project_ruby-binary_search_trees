@@ -84,7 +84,7 @@ class Tree
   end
 
   def parent(node)
-    return nil unless node.value
+    return nil unless node&.value
 
     preorder do |leaf|
       return leaf if leaf.left_node?(node) || leaf.right_node?(node)
