@@ -29,9 +29,61 @@ class Tree
 
   def insert(value); end
 
-  def delete(value); end
+  def delete(value)
+    delete_node = find(value)
+    return nil unless delete_node
+    return set_parent(delete_node) if leaf?(delete_node)
 
-  def find(value); end
+    replace_node = next_largest(delete_node)
+    replace_value = replace_node.value
+    delete(replace_value)
+    set_parent(delete_node, replace_value)
+
+    value
+  end
+
+  def set_parent(node, new_value = nil)
+    return nil if node.nil?
+
+    parent_node = parent(node)
+    if parent_node.left_node?(node)
+      parent_node.left_node = new_value if new_value.nil?
+      parent_node.left_node.value = new_value unless new_value.nil?
+    elsif parent_node.right_node?(node)
+      parent_node.right_node = new_value if new_value.nil?
+      parent_node.right_node.value = new_value unless new_value.nil?
+    end
+    parent_node
+  end
+
+  def leaf?(node)
+    node.left_node.nil? && node.right_node.nil?
+  end
+
+  def next_largest(node)
+    return nil unless node
+
+    n = node.value
+    node = parent(node) until node.right_node && node.value >= n
+    result = node.right_node
+    result = result.left_node until result.left_node.nil?
+    result
+  end
+
+  def parent(node)
+    return nil unless node.value
+
+    preorder do |leaf|
+      return leaf if leaf.left_node?(node) || leaf.right_node?(node)
+      # return { left_node: leaf } if node.value == leaf.left_node&.value
+      # return { right_node: leaf } if node.value == leaf.right_node&.value
+    end
+  end
+
+  def find(value)
+    preorder { |leaf| return leaf if leaf.value == value }
+    false
+  end
 
   def level_order(&block)
     queue = [root]
