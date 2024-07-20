@@ -3,6 +3,7 @@
 require 'node'
 require 'merge_sort'
 
+# Binary search tree
 class Tree
   include MergeSort
   attr_accessor :root
