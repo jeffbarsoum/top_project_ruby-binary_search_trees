@@ -22,9 +22,9 @@ class Tree
     return Node.new(array[0]) if array.length == 1
     return Node.new(array[1], Node.new(array[0])) if array.length == 2
 
-    node_array = [build_tree(array[0..divider - 1]), build_tree(array[divider + 1..array.length - 1])]
-    self.root = Node.new(array[divider], node_array.min, node_array.max)
-    root
+    left_node = build_tree(array[0..divider - 1])
+    right_node = build_tree(array[divider + 1..array.length - 1])
+    self.root = Node.new(array[divider], left_node, right_node)
   end
 
   def insert(value); end
