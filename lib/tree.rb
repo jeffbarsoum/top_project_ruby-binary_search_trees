@@ -48,10 +48,10 @@ class Tree
   def inorder(leaf = root, result = [], &block)
     return if leaf.nil?
 
-    preorder(leaf.left_node, result, &block)
-    block.call(leaf.value) if block_given?
+    inorder(leaf.left_node, result, &block)
+    block.call(leaf) if block_given?
     result << leaf.value unless block_given?
-    preorder(leaf.right_node, result, &block)
+    inorder(leaf.right_node, result, &block)
 
     result unless block_given?
   end
