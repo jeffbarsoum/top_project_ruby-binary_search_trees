@@ -27,7 +27,20 @@ class Tree
     self.root = Node.new(array[divider], left_node, right_node)
   end
 
-  def insert(value); end
+  def insert(value)
+    return false if find(value)
+
+    node = Node.new(value)
+
+    insert_node = root
+    until leaf?(insert_node)
+      insert_node = insert_node.left_node if node < insert_node && insert_node.left_node
+      insert_node = insert_node.right_node if node > insert_node && insert_node.right_node
+    end
+    insert_node.left_node = node if node < insert_node
+    insert_node.right_node = node if node > insert_node
+    node
+  end
 
   def delete(value)
     delete_node = find(value)

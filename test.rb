@@ -24,11 +24,18 @@ puts test.root
 
 # p "find first item: #{test.find(array[0])}"
 # p "test finding nonexistent item: #{test.find('cat')}"
-p "delete #{array[0]}"
+# p "delete #{array[0]}"
 
-test.delete(array[0])
+# test.delete(array[0])
+# puts test.root
+
+insert_plus = array[10] + 1
+insert_minus = array[10] - 1
+p "insert #{insert_minus}, #{insert_plus}"
+
+test.insert(insert_plus)
+test.insert(insert_minus)
 puts test.root
-# test.inorder { |leaf| p leaf if leaf.right_node.nil? || leaf.left_node.nil? }
 
 # Confirm that the tree is balanced by calling #balanced?
 # Print out all elements in level, pre, post, and in order
