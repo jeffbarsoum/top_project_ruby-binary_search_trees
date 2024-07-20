@@ -173,7 +173,9 @@ class Tree
     branch_cnt
   end
 
-  def balanced?; end
+  def balanced?
+    (-1..1).member?(height(root.left_node) - height(root.right_node))
+  end
 
   def rebalance; end
 end
