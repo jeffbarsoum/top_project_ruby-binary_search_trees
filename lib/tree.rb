@@ -79,11 +79,13 @@ class Tree
   def next_largest(node)
     return nil unless node
 
-    n = node.value
-    node = parent(node) until node.right_node && node.value >= n
-    result = node.right_node
-    result = result.left_node until result.left_node.nil?
-    result
+    last_leaf = nil
+    # print inorder(node)
+    inorder do |leaf|
+      return leaf if last_leaf == node
+
+      last_leaf = leaf
+    end
   end
 
   def parent(node)
