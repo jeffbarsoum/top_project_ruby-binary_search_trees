@@ -70,6 +70,12 @@ class Tree
     node.left_node.nil? && node.right_node.nil?
   end
 
+  def parent?(parent_node, child_node)
+    return parent_node if parent_node.left_node?(child_node) || parent_node.right_node?(child_node)
+
+    false
+  end
+
   def next_largest(node)
     return nil unless node
 
