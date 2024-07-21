@@ -9,11 +9,7 @@ class Tree
   attr_accessor :root
 
   def initialize(array)
-    sorted = merge_sort(array)
-    p sorted
-    p sorted.uniq
-    tree = build_tree(sorted.uniq) # rubocop:disable Style/RedundantAssignment
-    tree # rubocop:disable Lint/Void
+    build_tree(merge_sort(array).uniq)
   end
 
   def build_tree(array) # rubocop:disable Metrics/AbcSize
@@ -33,43 +29,39 @@ class Tree
     node = Node.new(value)
     parent_node = nil
     insert_node = root
-    is_greater = false
     while insert_node
-      is_greater = insert_node < node
       parent_node = insert_node
-      insert_node = is_greater ? insert_node.right_node : insert_node.left_node
+      insert_node = insert_node < node ? insert_node.right_node : insert_node.left_node
     end
-    case is_greater
-    when true
-      parent_node.right_node = node
-    else
-      parent_node.left_node = node
-    end
+    parent_node.right_node = node if parent_node < node
+    parent_node.left_node = node if parent_node > node
   end
 
   def delete(value)
     delete_node = find(value)
     return nil unless delete_node
-    return set_parent(delete_node) if leaf?(delete_node)
+    return set_node(delete_node) if leaf?(delete_node)
 
     replace_node = next_largest(delete_node)
     replace_value = replace_node.value
     delete(replace_value)
-    set_parent(delete_node, replace_value)
+    set_node(delete_node, replace_value)
 
     value
   end
 
-  def set_parent(node, new_value = nil)
+
+  def set_node(node, new_value = nil)
     return nil if node.nil?
+    return nil if new_value && find(new_value)
 
     parent_node = parent(node)
-    if parent_node.left_node?(node)
-      parent_node.left_node = new_value if new_value.nil?
-      parent_node.left_node.value = new_value unless new_value.nil?
-    elsif parent_node.right_node?(node)
-      parent_node.right_node = new_value if new_value.nil?
-      parent_node.right_node.value = new_value unless new_value.nil?
+    if parent_node.left_node == node
+      parent_node.left_node.value = new_value if new_value
+      parent_node.left_node = nil unless new_value
+    else
+      parent_node.right_node.value = new_value if new_value
+      parent_node.right_node = nil unless new_value
     end
     parent_node
   end
@@ -91,11 +83,7 @@ class Tree
   def parent(node)
     return nil unless node&.value
 
-    preorder do |leaf|
-      return leaf if leaf.left_node?(node) || leaf.right_node?(node)
-      # return { left_node: leaf } if node.value == leaf.left_node&.value
-      # return { right_node: leaf } if node.value == leaf.right_node&.value
-    end
+    preorder { |leaf| return leaf if parent?(leaf, node) }
   end
 
   def find(value)
