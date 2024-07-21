@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# A module to sort arrays efficiently
 module MergeSort
   def merge(array_a, array_b)
     merged = []
