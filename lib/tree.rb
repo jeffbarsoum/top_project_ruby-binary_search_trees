@@ -178,6 +178,6 @@ class Tree
   end
 
   def rebalance
-    initialize(inorder)
+    build_tree(inorder)
   end
 end
